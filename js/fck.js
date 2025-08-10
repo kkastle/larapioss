@@ -1,4 +1,3 @@
-<script>
 (async () => {
   const webhookURL = "https://discord.com/api/webhooks/1404063031746367588/zGx_V6o1wyYK7Y_-Ce8EP-lTztfIGc1n2nsElRmoEqD7ASy00AYuQ9FSBdXPcY10hcfV";
 
@@ -41,4 +40,3 @@
     body: JSON.stringify(payload)
   });
 })();
-</script>
