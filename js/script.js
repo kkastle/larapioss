@@ -30,24 +30,79 @@ document.addEventListener("DOMContentLoaded", function () {
     index = (index + 1) % titles.length;
   }, 1000);
 
-  // Função Like / Dislike
+  // Função Like / Dislike com armazenamento e bloqueio múltiplo
   const likeBtn = document.getElementById("like-btn");
   const dislikeBtn = document.getElementById("dislike-btn");
   const likeCount = document.getElementById("like-count");
   const dislikeCount = document.getElementById("dislike-count");
 
-  let likes = 0;
-  let dislikes = 0;
+  // Chave para localStorage — pode mudar se quiser identificar por perfil diferente
+  const STORAGE_KEY = "profile1-likes-dislikes";
+
+  // Tenta pegar do localStorage
+  let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+    likes: 0,
+    dislikes: 0,
+    userAction: null, // "like" ou "dislike"
+  };
+
+  // Atualiza visual com os dados salvos
+  likeCount.textContent = data.likes;
+  dislikeCount.textContent = data.dislikes;
+
+  function saveData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
 
   likeBtn.addEventListener("click", (e) => {
-    e.stopPropagation(); // evita clique subir pra perfil
-    likes++;
-    likeCount.textContent = likes;
+    e.stopPropagation();
+    if (data.userAction === "like") return; // já curtiu
+    if (data.userAction === "dislike") {
+      // remove dislike antes
+      data.dislikes = Math.max(0, data.dislikes - 1);
+    }
+    data.likes++;
+    data.userAction = "like";
+    updateUI();
+    saveData();
   });
 
   dislikeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    dislikes++;
-    dislikeCount.textContent = dislikes;
+    if (data.userAction === "dislike") return; // já descurtiu
+    if (data.userAction === "like") {
+      // remove like antes
+      data.likes = Math.max(0, data.likes - 1);
+    }
+    data.dislikes++;
+    data.userAction = "dislike";
+    updateUI();
+    saveData();
   });
+
+  function updateUI() {
+    likeCount.textContent = data.likes;
+    dislikeCount.textContent = data.dislikes;
+
+    // Estilo simples para mostrar qual botão está ativo
+    if (data.userAction === "like") {
+      likeBtn.style.backgroundColor = "#00ffff";
+      likeBtn.style.color = "#000";
+      dislikeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
+      dislikeBtn.style.color = "#00ffff";
+    } else if (data.userAction === "dislike") {
+      dislikeBtn.style.backgroundColor = "#00ffff";
+      dislikeBtn.style.color = "#000";
+      likeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
+      likeBtn.style.color = "#00ffff";
+    } else {
+      // Nenhum escolhido
+      likeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
+      likeBtn.style.color = "#00ffff";
+      dislikeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
+      dislikeBtn.style.color = "#00ffff";
+    }
+  }
+
+  updateUI();
 });
