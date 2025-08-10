@@ -11,13 +11,6 @@ body {
   cursor: url('../media/cursor.png'), auto;
 }
 
-a,
-button,
-input[type='button'],
-input[type='submit'] {
-  cursor: url('../media/cursor.png'), auto;
-}
-
 #intro {
   background-color: rgba(0, 0, 0, 0.85);
   color: #fff;
@@ -37,7 +30,7 @@ input[type='submit'] {
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 15px #fff;
+  text-shadow: 0 0 10px #fff;
 }
 
 #intro.fade-out {
@@ -68,19 +61,8 @@ header {
   font-family: 'Impact', 'Arial Black', sans-serif;
   font-size: 3.5rem;
   color: #fff;
-  /* roxinho lilás suave */
-  text-shadow: 0 0 20px #9b59b6, 0 0 30px #8e44ad;
+  text-shadow: 0 0 10px #fff;
   margin: 0;
-}
-
-main {
-  margin-top: 2rem;
-}
-
-.profiles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .profile-wrapper {
@@ -96,50 +78,33 @@ main {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 12px;
-  /* box-shadow roxo suave */
-  box-shadow: 0 0 15px rgba(155, 89, 182, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   display: block;
 }
 
 .profile:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(142, 68, 173, 0.9);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
 .profile img {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  /* borda roxa */
-  border: 3px solid #9b59b6;
+  border: 3px solid #fff;
   margin-bottom: 1rem;
-}
-
-.badges {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 0.8rem;
 }
 
 .badges img {
   width: 30px;
   height: 30px;
-  /* sombra roxa */
-  filter: drop-shadow(0 0 2px #9b59b6);
-}
-
-.like-dislike {
-  margin-top: 1.25rem;
-  display: flex;
-  justify-content: center;
-  gap: 1.25rem;
+  filter: drop-shadow(0 0 2px #fff);
 }
 
 .like-dislike button {
-  background: rgba(155, 89, 182, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  color: #9b59b6;
+  color: #fff;
   font-size: 1.3rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -150,6 +115,6 @@ main {
 }
 
 .like-dislike button:hover {
-  background: #9b59b6;
+  background: #fff;
   color: #000;
 }
