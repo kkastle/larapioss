@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener("DOMContentLoaded", function () {
   const intro = document.getElementById("intro");
   const mainContent = document.getElementById("main-content");
@@ -40,12 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let likes = 0;
   let dislikes = 0;
 
-  likeBtn.addEventListener("click", () => {
+  likeBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // evita clique subir pra perfil
     likes++;
     likeCount.textContent = likes;
   });
 
-  dislikeBtn.addEventListener("click", () => {
+  dislikeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     dislikes++;
     dislikeCount.textContent = dislikes;
   });
