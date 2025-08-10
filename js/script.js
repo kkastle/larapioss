@@ -1,4 +1,4 @@
-// Firebase config e init
+// Firebase config e init (com compat)
 const firebaseConfig = {
   apiKey: "AIzaSyDGK_RvBvHq9RaX0pbAEJocThMbizAEm8w",
   authDomain: "polonie-d6c60.firebaseapp.com",
@@ -10,7 +10,7 @@ const firebaseConfig = {
   measurementId: "G-8C37WPZ6B0"
 };
 
-// Inicializa Firebase
+// Inicializa Firebase compat
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
@@ -29,8 +29,10 @@ const dislikeCount = document.getElementById("dislike-count");
 const messages = ["Não clica porra", "Ok, você que sabe."];
 let clickCount = 0;
 
-// Controle de clique intro
+// Evento clique intro
 intro.addEventListener("click", () => {
+  console.log("Intro clicado!"); // DEBUG
+
   if (clickCount < messages.length) {
     introText.textContent = messages[clickCount];
     clickCount++;
@@ -39,15 +41,17 @@ intro.addEventListener("click", () => {
     setTimeout(() => {
       mainContent.classList.remove("hidden");
       playMusic();
-    }, 500); // espera a animação sumir
+      // desativa o intro para não interferir mais no clique
+      intro.style.pointerEvents = "none";
+    }, 500);
   }
 });
 
 function playMusic() {
-  music.play();
+  music.play().catch(e => console.log("Erro ao tocar música:", e));
 }
 
-// Atualiza título aba
+// Título animado na aba
 const titles = ["Polonie", "2k25!"];
 let index = 0;
 setInterval(() => {
@@ -55,17 +59,18 @@ setInterval(() => {
   index = (index + 1) % titles.length;
 }, 1000);
 
-// Função para atualizar contagem no Firebase
+// Atualiza contagem no DOM
 function updateCounts(likes, dislikes) {
   likeCount.textContent = likes;
   dislikeCount.textContent = dislikes;
 }
 
-// Ler dados do Firebase ao carregar
+// Ler votos do Firebase ao carregar
 function loadVotes() {
   db.ref("votes").once("value")
     .then(snapshot => {
       const data = snapshot.val() || { likes: 0, dislikes: 0 };
+      console.log("Votos carregados:", data);
       updateCounts(data.likes, data.dislikes);
     })
     .catch(err => console.error("Erro ao carregar votos:", err));
@@ -73,28 +78,28 @@ function loadVotes() {
 
 loadVotes();
 
-// Função para adicionar voto
+// Adiciona voto com transação para evitar conflito
 function addVote(type) {
   const voteRef = db.ref("votes");
   voteRef.transaction(currentData => {
     if (currentData === null) {
-      return { likes: 0, dislikes: 0 };
-    } else {
-      if (type === "like") currentData.likes++;
-      if (type === "dislike") currentData.dislikes++;
-      return currentData;
+      currentData = { likes: 0, dislikes: 0 };
     }
+    if (type === "like") currentData.likes++;
+    if (type === "dislike") currentData.dislikes++;
+    return currentData;
   }, (error, committed, snapshot) => {
     if (error) {
       console.error("Erro ao atualizar votos:", error);
     } else if (committed) {
       const data = snapshot.val();
+      console.log("Votos atualizados:", data);
       updateCounts(data.likes, data.dislikes);
     }
   });
 }
 
-// Bloquear múltiplos votos no mesmo cliente usando localStorage
+// Controle de múltiplos votos usando localStorage
 function canVote() {
   return !localStorage.getItem("hasVoted");
 }
@@ -103,7 +108,7 @@ function markVoted() {
   localStorage.setItem("hasVoted", "true");
 }
 
-// Evento dos botões
+// Botões de like/dislike
 likeBtn.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
