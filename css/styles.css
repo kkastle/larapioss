@@ -86,6 +86,7 @@ main {
   margin: 1.5rem;
   width: 220px;
   text-align: center;
+  position: relative;
 }
 
 .profile {
@@ -128,16 +129,16 @@ main {
   box-shadow: none !important;
 }
 
-}
-
+/* Botões de like/dislike centralizados e mais abaixo */
 .like-dislike {
-  position: relative;
-  top: 100px; /* ajusta o quanto quer empurrar */
+  position: absolute;
+  left: 50%;
+  top: 70%; /* ajusta para mais baixo ou mais alto */
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 1.25rem;
 }
-
 
 .like-dislike button {
   background: rgba(255, 255, 255, 0.1);
@@ -146,7 +147,6 @@ main {
   font-size: 1.3rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
-  cursor: /media/curso.png;
   font-weight: 700;
   transition: background-color 0.3s, color 0.3s;
   user-select: none;
