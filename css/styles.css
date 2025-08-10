@@ -8,7 +8,12 @@ body {
     height: 100vh;
     overflow: hidden;
     position: relative;
-    cursor: url('../media/cursor.png'), auto; /* <<< cursor personalizado aqui */
+    cursor: url('../media/cursor.png'), auto; /* cursor personalizado */
+}
+
+/* Aplica o cursor personalizado também em elementos clicáveis */
+a, button, input[type="button"], input[type="submit"] {
+    cursor: url('../media/cursor.png'), auto;
 }
 
 #video-background {
