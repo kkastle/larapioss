@@ -1,2 +1,32 @@
-document.addEventListener("DOMContentLoaded",function(){var intro=document.getElementById("intro");var mainContent=document.getElementById("main-content");var clickText=document.getElementById("click-text");var music=document.getElementById("music");intro.addEventListener("click",function(){intro.classList.add("fade-out");mainContent.classList.remove("hidden");playMusic();});function playMusic(){music.play();clickText.textContent="Música tocando";}
-var titles=["Polonie","2k25!"];var index=0;setInterval(function(){document.title=titles[index];index=(index+1)%titles.length;},1000);});document.addEventListener('DOMContentLoaded',()=>{document.getElementById('intro').addEventListener('click',()=>{document.getElementById('intro').classList.add('hidden');document.getElementById('main-content').classList.add('show');});});
+document.addEventListener("DOMContentLoaded", function() {
+    const intro = document.getElementById("intro");
+    const mainContent = document.getElementById("main-content");
+    const music = document.getElementById("music");
+    const introText = document.querySelector("#intro .intro-content p");
+
+    const messages = ["Não clica porra", "Ok, você que sabe."];
+    let clickCount = 0;
+
+    intro.addEventListener("click", function() {
+        if (clickCount < messages.length) {
+            introText.textContent = messages[clickCount];
+            clickCount++;
+        } else {
+            intro.classList.add("fade-out");
+            mainContent.classList.remove("hidden");
+            playMusic();
+        }
+    });
+
+    function playMusic() {
+        music.play();
+    }
+
+    // título animado no browser
+    const titles = ["Polonie", "2k25!"];
+    let index = 0;
+    setInterval(function() {
+        document.title = titles[index];
+        index = (index + 1) % titles.length;
+    }, 1000);
+});
