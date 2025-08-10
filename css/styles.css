@@ -123,6 +123,7 @@ main {
   width: 30px;
   height: 30px;
   filter: drop-shadow(0 0 2px #fff);
+  border-radius: 0 !important;
 }
 
 .like-dislike {
