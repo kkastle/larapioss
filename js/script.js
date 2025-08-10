@@ -1,3 +1,25 @@
+// script.js
+
+// Config do seu Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDGK_RvBvHq9RaX0pbAEJocThMbizAEm8w",
+  authDomain: "polonie-d6c60.firebaseapp.com",
+  databaseURL: "https://polonie-d6c60-default-rtdb.firebaseio.com",
+  projectId: "polonie-d6c60",
+  storageBucket: "polonie-d6c60.firebasestorage.app",
+  messagingSenderId: "218120828682",
+  appId: "1:218120828682:web:0faae8e3734549c9072cf3",
+  measurementId: "G-8C37WPZ6B0"
+};
+
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// Referências para likes e dislikes no Realtime Database
+const likesRef = database.ref('likes');
+const dislikesRef = database.ref('dislikes');
+
 document.addEventListener("DOMContentLoaded", function () {
   const intro = document.getElementById("intro");
   const mainContent = document.getElementById("main-content");
@@ -30,79 +52,43 @@ document.addEventListener("DOMContentLoaded", function () {
     index = (index + 1) % titles.length;
   }, 1000);
 
-  // Função Like / Dislike com armazenamento e bloqueio múltiplo
+  // Contadores da interface
   const likeBtn = document.getElementById("like-btn");
   const dislikeBtn = document.getElementById("dislike-btn");
   const likeCount = document.getElementById("like-count");
   const dislikeCount = document.getElementById("dislike-count");
 
-  // Chave para localStorage — pode mudar se quiser identificar por perfil diferente
-  const STORAGE_KEY = "profile1-likes-dislikes";
-
-  // Tenta pegar do localStorage
-  let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-    likes: 0,
-    dislikes: 0,
-    userAction: null, // "like" ou "dislike"
-  };
-
-  // Atualiza visual com os dados salvos
-  likeCount.textContent = data.likes;
-  dislikeCount.textContent = data.dislikes;
-
-  function saveData() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
-
-  likeBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (data.userAction === "like") return; // já curtiu
-    if (data.userAction === "dislike") {
-      // remove dislike antes
-      data.dislikes = Math.max(0, data.dislikes - 1);
-    }
-    data.likes++;
-    data.userAction = "like";
-    updateUI();
-    saveData();
+  // Atualiza os contadores em tempo real vindo do Firebase
+  likesRef.on('value', (snapshot) => {
+    const val = snapshot.val() || 0;
+    likeCount.textContent = val;
   });
 
-  dislikeBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (data.userAction === "dislike") return; // já descurtiu
-    if (data.userAction === "like") {
-      // remove like antes
-      data.likes = Math.max(0, data.likes - 1);
-    }
-    data.dislikes++;
-    data.userAction = "dislike";
-    updateUI();
-    saveData();
+  dislikesRef.on('value', (snapshot) => {
+    const val = snapshot.val() || 0;
+    dislikeCount.textContent = val;
   });
 
-  function updateUI() {
-    likeCount.textContent = data.likes;
-    dislikeCount.textContent = data.dislikes;
-
-    // Estilo simples para mostrar qual botão está ativo
-    if (data.userAction === "like") {
-      likeBtn.style.backgroundColor = "#00ffff";
-      likeBtn.style.color = "#000";
-      dislikeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
-      dislikeBtn.style.color = "#00ffff";
-    } else if (data.userAction === "dislike") {
-      dislikeBtn.style.backgroundColor = "#00ffff";
-      dislikeBtn.style.color = "#000";
-      likeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
-      likeBtn.style.color = "#00ffff";
-    } else {
-      // Nenhum escolhido
-      likeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
-      likeBtn.style.color = "#00ffff";
-      dislikeBtn.style.backgroundColor = "rgba(0,255,255,0.1)";
-      dislikeBtn.style.color = "#00ffff";
-    }
+  // Função para impedir múltiplos votos (localStorage)
+  function canVote() {
+    return !localStorage.getItem('voted');
   }
 
-  updateUI();
+  likeBtn.addEventListener('click', () => {
+    if (!canVote()) {
+      alert('Você já votou!');
+      return;
+    }
+    likesRef.transaction(current => (current || 0) + 1);
+    localStorage.setItem('voted', 'true');
+  });
+
+  dislikeBtn.addEventListener('click', () => {
+    if (!canVote()) {
+      alert('Você já votou!');
+      return;
+    }
+    dislikesRef.transaction(current => (current || 0) + 1);
+    localStorage.setItem('voted', 'true');
+  });
 });
