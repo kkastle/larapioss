@@ -133,7 +133,7 @@ main {
 .like-dislike {
   position: absolute;
   left: 50%;
-  top: 96%; /* ajusta para mais baixo ou mais alto */
+  top: 98.5%; /* ajusta para mais baixo ou mais alto */
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
