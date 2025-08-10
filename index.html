@@ -7,10 +7,56 @@
   <link rel="icon" type="image/png" href="images/bandido.png" />
   <link rel="stylesheet" href="css/styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome para os ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
   <script src="js/script.js" defer></script>
 
+  <style>
+    .like-dislike {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .like-dislike button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .like-dislike button i {
+      font-size: 18px;
+    }
+
+    /* Botão de like */
+    #like-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    #like-btn:hover {
+      background-color: #218838;
+    }
+
+    /* Botão de dislike */
+    #dislike-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    #dislike-btn:hover {
+      background-color: #b52a37;
+    }
+  </style>
 </head>
 <body>
   <div id="intro">
@@ -36,8 +82,14 @@
             </div>
           </a>
           <div class="like-dislike">
-            <button id="like-btn">👍 <span id="like-count">0</span></button>
-            <button id="dislike-btn">👎 <span id="dislike-count">0</span></button>
+            <button id="like-btn">
+              <i class="fa-solid fa-thumbs-up"></i>
+              <span id="like-count">0</span>
+            </button>
+            <button id="dislike-btn">
+              <i class="fa-solid fa-thumbs-down"></i>
+              <span id="dislike-count">0</span>
+            </button>
           </div>
         </div>
       </section>
