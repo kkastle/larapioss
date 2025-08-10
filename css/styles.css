@@ -122,8 +122,12 @@ main {
 .badges img {
   width: 30px;
   height: 30px;
-  filter: drop-shadow(0 0 2px #fff);
+  filter: none !important;
+  border: none !important;
   border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
 }
 
 .like-dislike {
