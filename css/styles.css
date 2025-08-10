@@ -1,4 +1,3 @@
-/* styles.css */
 body {
   background-color: #000;
   color: #fff;
@@ -83,17 +82,21 @@ main {
   justify-content: center;
 }
 
-.profile {
+.profile-wrapper {
   margin: 1.5rem;
+  width: 220px;
   text-align: center;
+}
+
+.profile {
   text-decoration: none;
   color: #fff;
   transition: transform 0.3s, box-shadow 0.3s;
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 12px;
-  width: 220px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  display: block;
 }
 
 .profile:hover {
