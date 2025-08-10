@@ -68,7 +68,8 @@ header {
   font-family: 'Impact', 'Arial Black', sans-serif;
   font-size: 3.5rem;
   color: #fff;
-  text-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
+  /* roxinho lilás suave */
+  text-shadow: 0 0 20px #9b59b6, 0 0 30px #8e44ad;
   margin: 0;
 }
 
@@ -95,20 +96,22 @@ main {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  /* box-shadow roxo suave */
+  box-shadow: 0 0 15px rgba(155, 89, 182, 0.4);
   display: block;
 }
 
 .profile:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+  box-shadow: 0 0 25px rgba(142, 68, 173, 0.9);
 }
 
 .profile img {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: 3px solid #0ff;
+  /* borda roxa */
+  border: 3px solid #9b59b6;
   margin-bottom: 1rem;
 }
 
@@ -122,7 +125,8 @@ main {
 .badges img {
   width: 30px;
   height: 30px;
-  filter: drop-shadow(0 0 2px #0ff);
+  /* sombra roxa */
+  filter: drop-shadow(0 0 2px #9b59b6);
 }
 
 .like-dislike {
@@ -133,9 +137,9 @@ main {
 }
 
 .like-dislike button {
-  background: rgba(0, 255, 255, 0.1);
+  background: rgba(155, 89, 182, 0.1);
   border: none;
-  color: #00ffff;
+  color: #9b59b6;
   font-size: 1.3rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -146,6 +150,6 @@ main {
 }
 
 .like-dislike button:hover {
-  background: #00ffff;
+  background: #9b59b6;
   color: #000;
 }
