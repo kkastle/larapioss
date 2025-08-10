@@ -131,11 +131,13 @@ main {
 }
 
 .like-dislike {
-  margin-top: 4rem;
+  position: relative;
+  top: 100px; /* ajusta o quanto quer empurrar */
   display: flex;
   justify-content: center;
   gap: 1.25rem;
 }
+
 
 .like-dislike button {
   background: rgba(255, 255, 255, 0.1);
