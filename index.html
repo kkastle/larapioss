@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Polonie</title>
-    <link rel="icon" type="image/png" href="images/bandido.png" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-    <script src="js/script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Polonie</title>
+  <link rel="icon" type="image/png" href="images/bandido.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="js/script.js" defer></script>
 </head>
 <body>
-    <div id="intro">
-        <div class="intro-content">
-            <p>Não Clique!</p>
+  <div id="intro">
+    <div class="intro-content">
+      <p>Não Clique!</p>
+    </div>
+  </div>
+  <div id="main-content" class="hidden">
+    <header>
+      <h1 class="title">Polonie 2k25</h1>
+    </header>
+    <main>
+      <section class="profiles">
+        <!-- Perfil 1 -->
+        <div class="profile-wrapper">
+          <a href="https://discord.com/users/1390642137863028859/" class="profile" target="_blank" rel="noopener noreferrer">
+            <img src="images/profile4.gif" alt="Profile Picture" />
+            <h2>Polonie</h2>
+            <p>@espremi</p>
+            <div class="badges">
+              <img src="images/badge1.png" alt="Badge 1" title="Badge 1" />
+              <img src="images/badge2.png" alt="Badge 2" title="Badge 2" />
+              <img src="images/badge3.png" alt="Badge 3" title="Badge 3" />
+            </div>
+          </a>
+          <div class="like-dislike">
+            <button id="like-btn">👍 <span id="like-count">0</span></button>
+            <button id="dislike-btn">👎 <span id="dislike-count">0</span></button>
+          </div>
         </div>
-    </div>
-    <div id="main-content" class="hidden">
-        <header>
-            <h1 class="title">Polonie 2k25</h1>
-        </header>
-        <main>
-            <section class="profiles">
-                <!-- Perfil 1 -->
-                <a href="https://discord.com/users/1390642137863028859/" class="profile">
-                    <img src="images/profile4.gif" alt="Profile Picture" />
-                    <h2>Polonie</h2>
-                    <p>@espremi</p>
-                    <div class="badges">
-                        <img src="images/badge1.png" alt="Badge 1" title="Badge 1" />
-                        <img src="images/badge2.png" alt="Badge 2" title="Badge 2" />
-                        <img src="images/badge3.png" alt="Badge 3" title="Badge 3" />
-                    </div>
-                    <div class="like-dislike">
-                        <button id="like-btn">👍 <span id="like-count">0</span></button>
-                        <button id="dislike-btn">👎 <span id="dislike-count">0</span></button>
-                    </div>
-                </a>
-            </section>
-        </main>
-        <audio id="music" src="media/pepepsico.mp3" preload="auto"></audio>
-    </div>
+      </section>
+    </main>
+    <audio id="music" src="media/pepepsico.mp3" preload="auto"></audio>
+  </div>
 </body>
 </html>
