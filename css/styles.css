@@ -146,7 +146,7 @@ main {
   font-size: 1.3rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: /media/curso.png;
   font-weight: 700;
   transition: background-color 0.3s, color 0.3s;
   user-select: none;
