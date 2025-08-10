@@ -1,6 +1,4 @@
-// script.js
-
-// Config do seu Firebase
+// Firebase config e init
 const firebaseConfig = {
   apiKey: "AIzaSyDGK_RvBvHq9RaX0pbAEJocThMbizAEm8w",
   authDomain: "polonie-d6c60.firebaseapp.com",
@@ -12,83 +10,118 @@ const firebaseConfig = {
   measurementId: "G-8C37WPZ6B0"
 };
 
-// Inicializa o Firebase
+// Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const db = firebase.database();
 
-// Referências para likes e dislikes no Realtime Database
-const likesRef = database.ref('likes');
-const dislikesRef = database.ref('dislikes');
+// DOM Elements
+const intro = document.getElementById("intro");
+const mainContent = document.getElementById("main-content");
+const introText = document.querySelector("#intro .intro-content p");
+const music = document.getElementById("music");
 
-document.addEventListener("DOMContentLoaded", function () {
-  const intro = document.getElementById("intro");
-  const mainContent = document.getElementById("main-content");
-  const music = document.getElementById("music");
-  const introText = document.querySelector("#intro .intro-content p");
+const likeBtn = document.getElementById("like-btn");
+const dislikeBtn = document.getElementById("dislike-btn");
+const likeCount = document.getElementById("like-count");
+const dislikeCount = document.getElementById("dislike-count");
 
-  const messages = ["Não clica porra", "Ok, você que sabe."];
-  let clickCount = 0;
+// Intro messages
+const messages = ["Não clica porra", "Ok, você que sabe."];
+let clickCount = 0;
 
-  intro.addEventListener("click", function () {
-    if (clickCount < messages.length) {
-      introText.textContent = messages[clickCount];
-      clickCount++;
-    } else {
-      intro.classList.add("fade-out");
+// Controle de clique intro
+intro.addEventListener("click", () => {
+  if (clickCount < messages.length) {
+    introText.textContent = messages[clickCount];
+    clickCount++;
+  } else {
+    intro.classList.add("fade-out");
+    setTimeout(() => {
       mainContent.classList.remove("hidden");
       playMusic();
-    }
-  });
-
-  function playMusic() {
-    music.play();
+    }, 500); // espera a animação sumir
   }
+});
 
-  // título animado na aba do navegador
-  const titles = ["Polonie", "2k25!"];
-  let index = 0;
-  setInterval(function () {
-    document.title = titles[index];
-    index = (index + 1) % titles.length;
-  }, 1000);
+function playMusic() {
+  music.play();
+}
 
-  // Contadores da interface
-  const likeBtn = document.getElementById("like-btn");
-  const dislikeBtn = document.getElementById("dislike-btn");
-  const likeCount = document.getElementById("like-count");
-  const dislikeCount = document.getElementById("dislike-count");
+// Atualiza título aba
+const titles = ["Polonie", "2k25!"];
+let index = 0;
+setInterval(() => {
+  document.title = titles[index];
+  index = (index + 1) % titles.length;
+}, 1000);
 
-  // Atualiza os contadores em tempo real vindo do Firebase
-  likesRef.on('value', (snapshot) => {
-    const val = snapshot.val() || 0;
-    likeCount.textContent = val;
+// Função para atualizar contagem no Firebase
+function updateCounts(likes, dislikes) {
+  likeCount.textContent = likes;
+  dislikeCount.textContent = dislikes;
+}
+
+// Ler dados do Firebase ao carregar
+function loadVotes() {
+  db.ref("votes").once("value")
+    .then(snapshot => {
+      const data = snapshot.val() || { likes: 0, dislikes: 0 };
+      updateCounts(data.likes, data.dislikes);
+    })
+    .catch(err => console.error("Erro ao carregar votos:", err));
+}
+
+loadVotes();
+
+// Função para adicionar voto
+function addVote(type) {
+  const voteRef = db.ref("votes");
+  voteRef.transaction(currentData => {
+    if (currentData === null) {
+      return { likes: 0, dislikes: 0 };
+    } else {
+      if (type === "like") currentData.likes++;
+      if (type === "dislike") currentData.dislikes++;
+      return currentData;
+    }
+  }, (error, committed, snapshot) => {
+    if (error) {
+      console.error("Erro ao atualizar votos:", error);
+    } else if (committed) {
+      const data = snapshot.val();
+      updateCounts(data.likes, data.dislikes);
+    }
   });
+}
 
-  dislikesRef.on('value', (snapshot) => {
-    const val = snapshot.val() || 0;
-    dislikeCount.textContent = val;
-  });
+// Bloquear múltiplos votos no mesmo cliente usando localStorage
+function canVote() {
+  return !localStorage.getItem("hasVoted");
+}
 
-  // Função para impedir múltiplos votos (localStorage)
-  function canVote() {
-    return !localStorage.getItem('voted');
+function markVoted() {
+  localStorage.setItem("hasVoted", "true");
+}
+
+// Evento dos botões
+likeBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (canVote()) {
+    addVote("like");
+    markVoted();
+  } else {
+    alert("Você já votou!");
   }
+});
 
-  likeBtn.addEventListener('click', () => {
-    if (!canVote()) {
-      alert('Você já votou!');
-      return;
-    }
-    likesRef.transaction(current => (current || 0) + 1);
-    localStorage.setItem('voted', 'true');
-  });
-
-  dislikeBtn.addEventListener('click', () => {
-    if (!canVote()) {
-      alert('Você já votou!');
-      return;
-    }
-    dislikesRef.transaction(current => (current || 0) + 1);
-    localStorage.setItem('voted', 'true');
-  });
+dislikeBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (canVote()) {
+    addVote("dislike");
+    markVoted();
+  } else {
+    alert("Você já votou!");
+  }
 });
